@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentHub - Panel administrativo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Red+Hat+Mono:wght@400;500&family=Red+Hat+Text:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    try {
+      if (localStorage.getItem('agenthub-theme') === 'dark') document.documentElement.classList.add('dark');
+    } catch (e) {}
+  </script>
+</head>
+<body class="h-full overflow-hidden bg-[#FCF8FF] text-[#1B1B23] antialiased dark:bg-[#13121B] dark:text-[#E4E1ED] font-[Instrument_Sans]">
+  <div class="flex h-full min-h-screen">
+    <aside id="sidebar" class="hidden lg:flex w-64 shrink-0 flex-col border-r border-[#C7C4D7] bg-[#F6F2FE] dark:border-[#464554] dark:bg-[#1B1B23]">
+      <div class="h-16 px-6 flex items-center gap-3 border-b border-[#C7C4D7] dark:border-[#464554]">
+        <div class="w-8 h-8 rounded-lg bg-[#2A14B4] text-white flex items-center justify-center dark:bg-[#C3C0FF] dark:text-[#1F00A4]">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        </div>
+        <div><p class="font-semibold leading-5 font-[Red_Hat_Text]">AgentHub</p><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Panel Admin</p></div>
+      </div>
+      <nav id="main-nav" aria-label="Navegación principal" class="flex-1 p-4 flex flex-col gap-1">
+        <button type="button" data-section="dashboard" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</button>
+        <button type="button" data-section="users" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Usuarios</button>
+        <button type="button" data-section="agents" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>Agentes</button>
+        <button type="button" data-section="skills" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Skills</button>
+        <button type="button" data-section="contracts" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Contrataciones</button>
+        <button type="button" data-section="errors" class="nav-item flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-medium text-[#464554] hover:bg-[#E4E1ED] dark:text-[#C7C4D7] dark:hover:bg-[#35343D]"><span class="flex items-center gap-3"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Log de errores</span><span id="sidebar-error-count" class="px-2 py-0.5 rounded-full bg-[#FFDAD6] text-[#93000A] text-xs tabular-nums dark:bg-[#93000A] dark:text-[#FFDAD6]">4</span></button>
+      </nav>
+      <div class="p-4 border-t border-[#C7C4D7] dark:border-[#464554]"><div class="flex items-center gap-3 px-2 py-1.5"><div class="w-8 h-8 rounded-full bg-[#4338CA] text-white flex items-center justify-center text-xs">LC</div><div><p class="text-sm font-semibold">Lucía Castro</p><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Admin Plataforma</p></div></div></div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="h-16 shrink-0 px-4 lg:px-6 border-b border-[#C7C4D7] bg-white flex items-center justify-between gap-4 dark:border-[#464554] dark:bg-[#1B1B23]">
+        <div class="flex items-center gap-3">
+          <button id="mobile-nav-btn" type="button" aria-label="Abrir menú lateral" class="lg:hidden w-9 h-9 rounded-lg border border-[#C7C4D7] flex items-center justify-center dark:border-[#464554]"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+          <h1 id="section-title" class="font-semibold text-xl font-[Red_Hat_Text]">Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-3"><span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#F0ECF8] text-xs text-[#777586] dark:bg-[#35343D] dark:text-[#C7C4D7]"><span class="w-1.5 h-1.5 rounded-full bg-[#15803D] dark:bg-[#4ADE80]"></span>Producción · Nov 2026</span><button id="theme-toggle" type="button" aria-label="Cambiar entre tema claro y oscuro" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#C7C4D7] bg-white text-sm hover:bg-[#F0ECF8] dark:border-[#464554] dark:bg-[#1B1B23] dark:hover:bg-[#35343D]"><svg class="w-4 h-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Tema</button></div>
+      </header>
+      <main id="main-content" class="flex-1 overflow-auto p-6 lg:p-8">
+        <div id="dashboard-section" data-panel="dashboard" class="max-w-7xl mx-auto"></div>
+        <div id="users-section" data-panel="users" class="hidden max-w-7xl mx-auto"></div>
+        <div id="agents-section" data-panel="agents" class="hidden max-w-7xl mx-auto"></div>
+        <div id="skills-section" data-panel="skills" class="hidden max-w-7xl mx-auto"></div>
+        <div id="contracts-section" data-panel="contracts" class="hidden max-w-7xl mx-auto"></div>
+        <div id="errors-section" data-panel="errors" class="hidden max-w-7xl mx-auto"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-layer"></div>
+
+  <script>
+    const state = { activeSection: 'dashboard', modalTrigger: null, openMenu: null, errorsResolved: new Set() };
+
+    const users = [
+      { id:'USR-1042', nombre:'NorteLogística S.A.', email:'ops@nortelogistica.es', plan:'Enterprise', estado:'Activo', contacto:'Mateo Herrera', pais:'España', registro:'2025-04-12', agentes:2, gasto:'$21,400.00' },
+      { id:'USR-1089', nombre:'Finanzas Andinas', email:'tech@finanzasandinas.com', plan:'Pro', estado:'Activo', contacto:'Sofía Mendoza', pais:'Colombia', registro:'2025-08-03', agentes:1, gasto:'$9,800.00' },
+      { id:'USR-1104', nombre:'Estudio Jurídico Vega', email:'soporte@vejabogados.es', plan:'Enterprise', estado:'Activo', contacto:'Carlos Vega', pais:'España', registro:'2026-01-19', agentes:1, gasto:'$11,200.00' },
+      { id:'USR-1127', nombre:'Clínica Horizonte', email:'admin@clinicahorizonte.org', plan:'Starter', estado:'Inactivo', contacto:'Dra. Elena Ríos', pais:'México', registro:'2026-03-22', agentes:1, gasto:'$0.00' },
+      { id:'USR-1158', nombre:'Retail Nova', email:'ecommerce@retailnova.com', plan:'Pro', estado:'Activo', contacto:'Diego Salgado', pais:'Chile', registro:'2026-06-15', agentes:1, gasto:'$6,520.00' }
+    ];
+
+    const agents = [
+      { id:'AGT-01', nombre:'Agente Aduanas-01', propietario:'NorteLogística S.A.', estado:'Activo', skills:['Navegación Web','Lectura de PDFs','Envío de Correos'], prompt:'Eres Aduanas-01, asistente especializado en despacho aduanero europeo para NorteLogística S.A.\n1. Extrae códigos TARIC, pesos brutos y valor CIF desde los PDFs de conocimiento de embarque.\n2. Verifica aranceles vigentes en el portal oficial de aduanas mediante Navegación Web.\n3. Si detectas discrepancias mayores al 2%, notifica inmediatamente al equipo de operaciones por correo.' },
+      { id:'AGT-02', nombre:'Agente Auditor-FX', propietario:'Finanzas Andinas', estado:'Activo', skills:['Consultas SQL','Lectura de PDFs'], prompt:'Eres Auditor-FX, agente de conciliación cambiaria para Finanzas Andinas.\n1. Consulta los movimientos diarios en PostgreSQL mediante Consultas SQL de solo lectura.\n2. Cruza tasas de cambio contra extractos bancarios.\n3. Genera un resumen con diferencias superiores a $5.00 USD.' },
+      { id:'AGT-03', nombre:'Agente Contratos-ES', propietario:'Estudio Jurídico Vega', estado:'Fallando', skills:['Lectura de PDFs','Envío de Correos'], prompt:'Eres Contratos-ES, revisor de cláusulas mercantiles para Estudio Jurídico Vega.\n1. Analiza borradores PDF buscando penalizaciones, jurisdicción y renovación automática.\n2. Resume riesgos en niveles Alto, Medio y Bajo.\n3. Envía el informe al abogado responsable.' },
+      { id:'AGT-04', nombre:'Agente Soporte-24h', propietario:'Retail Nova', estado:'Activo', skills:['Navegación Web','Envío de Correos','Gestión de Calendario'], prompt:'Eres Soporte-24h para Retail Nova.\n1. Responde consultas sobre estado de pedidos consultando el portal de logística.\n2. Agenda llamadas de seguimiento con clientes VIP cuando una incidencia supera las 48 horas.' },
+      { id:'AGT-05', nombre:'Agente Ruta-04', propietario:'NorteLogística S.A.', estado:'Fallando', skills:['Navegación Web','Consultas SQL'], prompt:'Eres Ruta-04, optimizador de entregas de última milla para NorteLogística S.A.\n1. Consulta ventanas horarias de entrega en la base de datos SQL.\n2. Revisa alertas de tráfico y restricciones municipales vía Navegación Web.' },
+      { id:'AGT-06', nombre:'Agente Citas-Med', propietario:'Clínica Horizonte', estado:'Inactivo', skills:['Gestión de Calendario','Lectura de PDFs'], prompt:'Eres Citas-Med para Clínica Horizonte.\n1. Lee órdenes médicas en PDF y valida especialidad requerida.\n2. Reserva turnos disponibles en los calendarios de especialistas.' }
+    ];
+
+    const skills = [
+      { id:'SKL-WEB-01', nombre:'Navegación Web', descripcion:'Consulta y extracción de información pública en tiempo real.', agentes:3, precio:'$1,200.00/mes', version:'v2.4.1', permisos:'HTTP GET/POST a dominios en lista blanca', vinculados:'Agente Aduanas-01, Agente Soporte-24h, Agente Ruta-04' },
+      { id:'SKL-PDF-02', nombre:'Lectura de PDFs', descripcion:'OCR y extracción estructurada de facturas, contratos y pólizas.', agentes:4, precio:'$1,500.00/mes', version:'v3.1.0', permisos:'Lectura de documentos adjuntos hasta 50 MB', vinculados:'Agente Aduanas-01, Agente Auditor-FX, Agente Contratos-ES, Agente Citas-Med' },
+      { id:'SKL-CAL-03', nombre:'Gestión de Calendario', descripcion:'Programación y recordatorios vía Google Calendar y Outlook.', agentes:2, precio:'$850.00/mes', version:'v1.9.2', permisos:'OAuth de calendario: lectura y creación', vinculados:'Agente Soporte-24h, Agente Citas-Med' },
+      { id:'SKL-SQL-04', nombre:'Consultas SQL', descripcion:'Consultas de solo lectura sobre PostgreSQL y BigQuery.', agentes:2, precio:'$1,800.00/mes', version:'v2.0.5', permisos:'SELECT únicamente, límite de 10 segundos', vinculados:'Agente Auditor-FX, Agente Ruta-04' },
+      { id:'SKL-EML-05', nombre:'Envío de Correos', descripcion:'Redacción y envío de notificaciones transaccionales.', agentes:3, precio:'$650.00/mes', version:'v1.6.0', permisos:'SMTP autenticado con firma corporativa', vinculados:'Agente Aduanas-01, Agente Contratos-ES, Agente Soporte-24h' }
+    ];
+
+    const contracts = [
+      { id:'CTR-2026-881', cliente:'NorteLogística S.A.', agente:'Agente Aduanas-01', inicio:'2026-10-01', fin:'2027-03-31', estado:'Activo', base:8500, descuento:850, total:'$11,000.00', skills:[['Navegación Web','$1,200.00'],['Lectura de PDFs','$1,500.00'],['Envío de Correos','$650.00']] },
+      { id:'CTR-2026-894', cliente:'Finanzas Andinas', agente:'Agente Auditor-FX', inicio:'2026-11-01', fin:'2027-04-30', estado:'Activo', base:6500, descuento:0, total:'$9,800.00', skills:[['Consultas SQL','$1,800.00'],['Lectura de PDFs','$1,500.00']] },
+      { id:'CTR-2026-902', cliente:'Estudio Jurídico Vega', agente:'Agente Contratos-ES', inicio:'2026-09-15', fin:'2027-03-14', estado:'Activo', base:9800, descuento:750, total:'$11,200.00', skills:[['Lectura de PDFs','$1,500.00'],['Envío de Correos','$650.00']] },
+      { id:'CTR-2026-740', cliente:'Clínica Horizonte', agente:'Agente Citas-Med', inicio:'2026-04-01', fin:'2026-09-30', estado:'Pasado', base:3800, descuento:250, total:'$5,900.00', skills:[['Gestión de Calendario','$850.00'],['Lectura de PDFs','$1,500.00']] }
+    ];
+
+    const errors = [
+      { id:'ERR-9041', timestamp:'2026-11-20 13:14:22', agente:'Agente Contratos-ES', tipo:'Crítico · OCR Timeout', gravedad:'error', descripcion:'Tiempo excedido al procesar un PDF de 42 páginas.', trace:'TimeoutError: PDFOCRWorker exceeded 30000ms limit\n at PdfSkill.extractText (/runtime/skills/pdf-ocr/index.js:142:19)\n at AgentExecutor.runSkill (/runtime/core/executor.js:88:11)\n Context: { agentId: "AGT-03", tenant: "Estudio Jurídico Vega", pages: 42 }' },
+      { id:'ERR-9038', timestamp:'2026-11-20 12:47:09', agente:'Agente Ruta-04', tipo:'Crítico · Conexión SQL', gravedad:'error', descripcion:'Pool de conexiones rechazado por PostgreSQL.', trace:'ConnectionRefusedError: ECONNREFUSED 10.24.18.9:5432\n at SqlSkill.query (/runtime/skills/sql-readonly/client.js:61:24)\n Context: { agentId: "AGT-05", tenant: "NorteLogística S.A.", retryAttempt: 3 }' },
+      { id:'ERR-9031', timestamp:'2026-11-20 11:05:51', agente:'Agente Soporte-24h', tipo:'Advertencia · Rate Limit', gravedad:'warning', descripcion:'Límite de peticiones alcanzado en API externa.', trace:'RateLimitWarning: 429 Too Many Requests\n at CalendarSkill.syncEvents (/runtime/skills/calendar/sync.js:97:13)\n Retry-After: 45s' },
+      { id:'ERR-9025', timestamp:'2026-11-20 09:32:14', agente:'Agente Aduanas-01', tipo:'Advertencia · Red', gravedad:'warning', descripcion:'Certificado TLS intermedio expirado.', trace:'TLSError: unable to verify the first certificate\n at WebBrowserSkill.fetch (/runtime/skills/web-nav/browser.js:211:9)\n Context: { agentId: "AGT-01", url: "https://portal.aduanas-reg.eu/taric" }' }
+    ];
+
+    const moreButton = (label) => `<button type="button" data-menu aria-haspopup="menu" aria-expanded="false" aria-label="${label}" class="inline-flex w-8 h-8 items-center justify-center rounded-lg text-[#777586] hover:bg-[#EAE6F3] dark:text-[#C7C4D7] dark:hover:bg-[#35343D] focus:outline-none focus:ring-2 focus:ring-[#5148D7]"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="12" cy="19" r="1.75"/></svg></button>`;
+    const menu = (items) => `<div data-dropdown role="menu" class="hidden absolute right-0 top-10 z-30 w-48 rounded-lg border border-[#C7C4D7] bg-white py-1 shadow-lg dark:border-[#464554] dark:bg-[#35343D]">${items}</div>`;
+    const statusBadge = (text, kind) => {
+      if (kind === 'success') return `<span role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCFCE7] text-[#14532D] text-xs font-medium dark:bg-[#14532D] dark:text-[#DCFCE7]"><span class="w-1.5 h-1.5 rounded-full bg-[#15803D] dark:bg-[#4ADE80]"></span>${text}</span>`;
+      if (kind === 'error') return `<span role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FFDAD6] text-[#93000A] text-xs font-medium dark:bg-[#93000A] dark:text-[#FFDAD6]"><span class="w-1.5 h-1.5 rounded-full bg-[#BA1A1A] dark:bg-[#FFB4AB]"></span>${text}</span>`;
+      if (kind === 'warning') return `<span role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#78350F] text-xs font-medium dark:bg-[#78350F] dark:text-[#FEF3C7]"><span class="w-1.5 h-1.5 rounded-full bg-[#B45309] dark:bg-[#FBBF24]"></span>${text}</span>`;
+      return `<span role="status" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E4E1ED] text-[#464554] text-xs font-medium dark:bg-[#35343D] dark:text-[#C7C4D7]"><span class="w-1.5 h-1.5 rounded-full bg-[#777586] dark:bg-[#918FA0]"></span>${text}</span>`;
+    };
+
+    function closeMenus() {
+      document.querySelectorAll('[data-dropdown]').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('[data-menu]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+      state.openMenu = null;
+    }
+
+    function openModal(title, subtitle, body, width = 'max-w-lg') {
+      closeMenus();
+      state.modalTrigger = document.activeElement;
+      document.getElementById('modal-layer').innerHTML = `<div class="fixed inset-0 z-50 flex items-center justify-center p-4"><div id="modal-backdrop" class="fixed inset-0 bg-[#1B1B23]/50 dark:bg-[#0E0D15]/75"></div><section role="dialog" aria-modal="true" aria-labelledby="modal-title" class="relative z-10 w-full ${width} max-h-[90vh] overflow-hidden rounded-2xl border border-[#C7C4D7] bg-white shadow-xl dark:border-[#464554] dark:bg-[#35343D]"><header class="flex items-center justify-between gap-4 px-6 py-4 border-b border-[#C7C4D7] dark:border-[#464554]"><div><h2 id="modal-title" class="text-xl font-semibold font-[Red_Hat_Text]">${title}</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">${subtitle}</p></div><button type="button" data-modal-close aria-label="Cerrar modal" class="w-8 h-8 rounded-lg text-[#777586] hover:bg-[#EAE6F3] dark:text-[#C7C4D7] dark:hover:bg-[#464554]">&times;</button></header><div class="px-6 py-5 overflow-y-auto max-h-[65vh]">${body}</div><footer class="flex justify-end px-6 py-4 border-t border-[#C7C4D7] bg-[#F6F2FE] dark:border-[#464554] dark:bg-[#1F1F27]"><button type="button" data-modal-close class="px-4 py-2 rounded-lg border border-[#C7C4D7] bg-white text-sm font-medium hover:bg-[#F0ECF8] dark:border-[#464554] dark:bg-[#1B1B23] dark:hover:bg-[#35343D]">Cerrar</button></footer></section></div>`;
+      document.body.classList.add('overflow-hidden');
+      document.querySelector('[data-modal-close]').focus();
+    }
+
+    function closeModal() {
+      document.getElementById('modal-layer').innerHTML = '';
+      document.body.classList.remove('overflow-hidden');
+      if (state.modalTrigger && document.contains(state.modalTrigger)) state.modalTrigger.focus();
+    }
+
+    function renderDashboard() {
+      document.getElementById('dashboard-section').innerHTML = `<div class="flex flex-col gap-6"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Resumen operativo</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Estado financiero y salud de ejecución de agentes en todos los clientes activos.</p></div><section aria-label="Métricas principales" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><article class="min-h-40 rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col justify-between dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex justify-between"><h3 class="text-sm text-[#777586] dark:text-[#C7C4D7]">Ingresos del mes</h3><span class="p-2 rounded-lg bg-[#E3DFFF] text-[#2C2961] dark:bg-[#42407A] dark:text-[#E3DFFF]">$</span></div><p class="text-4xl font-bold font-[Red_Hat_Text] tabular-nums">$48,920</p><p class="text-sm text-[#15803D] dark:text-[#4ADE80]">+14.2% vs. octubre</p></article><article class="min-h-40 rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col justify-between dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex justify-between"><h3 class="text-sm text-[#777586] dark:text-[#C7C4D7]">Descuentos</h3><span class="p-2 rounded-lg bg-[#FEF3C7] text-[#78350F] dark:bg-[#78350F] dark:text-[#FEF3C7]">%</span></div><p class="text-4xl font-bold font-[Red_Hat_Text] tabular-nums">$3,480</p><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Pérdida por cupones y planes</p></article><article class="min-h-40 rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col justify-between dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex justify-between"><h3 class="text-sm text-[#777586] dark:text-[#C7C4D7]">Agentes activos</h3><span class="p-2 rounded-lg bg-[#DCFCE7] text-[#14532D] dark:bg-[#14532D] dark:text-[#DCFCE7]">●</span></div><p class="text-4xl font-bold font-[Red_Hat_Text] tabular-nums">3</p><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Operando en 4 clientes activos</p></article><article class="min-h-40 rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col justify-between dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex justify-between"><h3 class="text-sm text-[#777586] dark:text-[#C7C4D7]">Agentes fallando</h3><span class="p-2 rounded-lg bg-[#FFDAD6] text-[#93000A] dark:bg-[#93000A] dark:text-[#FFDAD6]">!</span></div><p class="text-4xl font-bold font-[Red_Hat_Text] tabular-nums text-[#BA1A1A] dark:text-[#FFB4AB]">2</p><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Revisar en Log de errores</p></article></section><section aria-label="Actividad semanal" class="rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col gap-4 dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-xl font-semibold font-[Red_Hat_Text]">Actividad semanal de ejecuciones</h3><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Tareas completadas por día, últimos 7 días</p></div><span class="px-2.5 py-1 rounded-full bg-[#F0ECF8] text-xs dark:bg-[#35343D]">Marcador de posición</span></div><div class="min-h-64 rounded-lg border border-dashed border-[#C7C4D7] bg-[#F6F2FE] flex flex-col items-center justify-center gap-5 dark:border-[#464554] dark:bg-[#1F1F27]"><div class="flex items-end gap-4 h-28" aria-hidden="true"><div class="w-8 h-12 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div><div class="w-8 h-20 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div><div class="w-8 h-16 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div><div class="w-8 h-24 rounded-t bg-[#2A14B4] dark:bg-[#C3C0FF]"></div><div class="w-8 h-18 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div><div class="w-8 h-10 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div><div class="w-8 h-14 rounded-t bg-[#E3DFFF] dark:bg-[#42407A]"></div></div><p class="font-semibold">Gráfico de actividad semanal</p><div class="flex gap-6 text-xs text-[#777586] dark:text-[#C7C4D7] font-[Red_Hat_Mono]"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div></div></section></div>`;
+    }
+
+    function renderUsers() {
+      const rows = users.map(user => `<tr class="hover:bg-[#F6F2FE] dark:hover:bg-[#1F1F27]"><td class="px-5 py-3.5 font-medium">${user.nombre}</td><td class="px-5 py-3.5 font-[Red_Hat_Mono] text-xs text-[#777586] dark:text-[#C7C4D7]">${user.email}</td><td class="px-5 py-3.5"><span class="px-2.5 py-0.5 rounded-lg bg-[#E3DFFF] text-[#2C2961] text-xs dark:bg-[#42407A] dark:text-[#E3DFFF]">${user.plan}</span></td><td class="px-5 py-3.5">${statusBadge(user.estado, user.estado === 'Activo' ? 'success' : 'neutral')}</td><td class="px-5 py-3.5 text-right relative">${moreButton('Acciones para ' + user.nombre)}${menu(`<button type="button" role="menuitem" data-action="user-detail" data-id="${user.id}" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Ver detalle</button><button type="button" role="menuitem" data-action="noop" class="block w-full px-3.5 py-2 text-left text-sm text-[#BA1A1A] dark:text-[#FFB4AB]">Eliminar</button>`)}</td></tr>`).join('');
+      document.getElementById('users-section').innerHTML = `<div class="flex flex-col gap-6"><div class="flex flex-wrap items-end justify-between gap-4"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Empresas y cuentas registradas</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Consulta el plan contratado y la ficha completa de cada cliente.</p></div><span class="px-3 py-1 rounded-full bg-[#F0ECF8] text-xs dark:bg-[#35343D]">5 usuarios registrados</span></div><div class="rounded-xl border border-[#C7C4D7] bg-white overflow-visible dark:border-[#464554] dark:bg-[#1B1B23]"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-[#F6F2FE] border-b border-[#C7C4D7] dark:bg-[#1F1F27] dark:border-[#464554]"><tr><th class="px-5 py-3.5 text-xs text-[#777586] dark:text-[#C7C4D7]">Nombre</th><th class="px-5 py-3.5 text-xs text-[#777586] dark:text-[#C7C4D7]">Email</th><th class="px-5 py-3.5 text-xs text-[#777586] dark:text-[#C7C4D7]">Plan</th><th class="px-5 py-3.5 text-xs text-[#777586] dark:text-[#C7C4D7]">Estado</th><th class="px-5 py-3.5 text-right text-xs text-[#777586] dark:text-[#C7C4D7]">Acciones</th></tr></thead><tbody class="divide-y divide-[#C7C4D7] dark:divide-[#464554]">${rows}</tbody></table></div></div></div>`;
+    }
+
+    function renderAgents() {
+      const cards = agents.map(agent => {
+        const badge = agent.estado === 'Activo' ? statusBadge('Activo','success') : agent.estado === 'Fallando' ? statusBadge('Fallando','error') : statusBadge('Inactivo','neutral');
+        const skills = agent.skills.map(skill => `<span class="px-2.5 py-1 rounded-full bg-[#E3DFFF] text-[#2C2961] text-xs dark:bg-[#42407A] dark:text-[#E3DFFF]">${skill}</span>`).join('');
+        return `<article class="rounded-xl border border-[#C7C4D7] bg-white p-5 flex flex-col gap-3 dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex flex-wrap items-center justify-between gap-4"><div><div class="flex items-center gap-2"><h3 class="font-semibold">${agent.nombre}</h3><span class="font-[Red_Hat_Mono] text-xs text-[#777586] dark:text-[#C7C4D7]">${agent.id}</span></div><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Propietario: <span class="text-[#1B1B23] dark:text-[#E4E1ED]">${agent.propietario}</span></p></div><div class="flex items-center gap-3 relative">${badge}<button type="button" data-agent-skills aria-expanded="false" class="px-3 py-1.5 rounded-lg border border-[#C7C4D7] text-xs dark:border-[#464554]">Skills (${agent.skills.length})</button>${moreButton('Acciones para ' + agent.nombre)}${menu(`<button type="button" role="menuitem" data-action="agent-config" data-id="${agent.id}" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Configurar</button><button type="button" role="menuitem" data-action="noop" class="block w-full px-3.5 py-2 text-left text-sm text-[#BA1A1A] dark:text-[#FFB4AB]">Eliminar</button>`)}</div></div><div data-agent-panel class="hidden pt-3 border-t border-[#C7C4D7] flex flex-wrap gap-2 transition-all duration-200 dark:border-[#464554]"><span class="text-xs text-[#777586] dark:text-[#C7C4D7]">Skills equipadas:</span>${skills}</div></article>`;
+      }).join('');
+      document.getElementById('agents-section').innerHTML = `<div class="flex flex-col gap-6"><div class="flex flex-wrap items-end justify-between gap-4"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Agentes desplegados</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Inspecciona el estado, las skills y el prompt de sistema.</p></div><div class="flex gap-2">${statusBadge('3 Activos','success')}${statusBadge('2 Fallando','error')}${statusBadge('1 Inactivo','neutral')}</div></div><div class="flex flex-col gap-4">${cards}</div></div>`;
+    }
+
+    function renderSkills() {
+      const cards = skills.map(skill => `<article class="h-full rounded-xl border border-[#C7C4D7] bg-white p-6 flex flex-col justify-between gap-4 relative dark:border-[#464554] dark:bg-[#1B1B23]"><div class="flex flex-col gap-3"><div class="flex items-start justify-between gap-3"><div><h3 class="font-semibold">${skill.nombre}</h3><p class="font-[Red_Hat_Mono] text-xs text-[#777586] dark:text-[#C7C4D7]">${skill.id} · ${skill.version}</p></div><div class="relative">${moreButton('Acciones para ' + skill.nombre)}${menu(`<button type="button" role="menuitem" data-action="skill-detail" data-id="${skill.id}" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Ver detalle</button><button type="button" role="menuitem" data-action="noop" class="block w-full px-3.5 py-2 text-left text-sm text-[#BA1A1A] dark:text-[#FFB4AB]">Eliminar</button>`)}</div></div><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">${skill.descripcion}</p></div><div class="pt-3 border-t border-[#C7C4D7] flex items-center justify-between gap-2 dark:border-[#464554]"><span class="px-2.5 py-0.5 rounded-full bg-[#E3DFFF] text-[#2C2961] text-xs dark:bg-[#42407A] dark:text-[#E3DFFF]">${skill.agentes} agentes habilitados</span><span class="text-xs tabular-nums">${skill.precio}</span></div></article>`).join('');
+      document.getElementById('skills-section').innerHTML = `<div class="flex flex-col gap-6"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Catálogo de skills</h2><div class="mt-3 flex gap-3 rounded-xl border border-[#C7C4D7] bg-[#F6F2FE] p-4 text-sm dark:border-[#464554] dark:bg-[#1F1F27]"><span class="text-[#2A14B4] dark:text-[#C3C0FF]">i</span><p><strong>Una skill</strong> es una capacidad modular que se puede adjuntar a un agente de IA para ampliar sus acciones en producción.</p></div></div><section aria-label="Catálogo de skills disponibles" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch">${cards}</section></div>`;
+    }
+
+    function renderContracts() {
+      const rows = contracts.map(contract => `<tr class="hover:bg-[#F6F2FE] dark:hover:bg-[#1F1F27]"><td class="px-5 py-3.5 font-medium">${contract.cliente}</td><td class="px-5 py-3.5">${contract.agente}</td><td class="px-5 py-3.5 text-sm text-[#777586] dark:text-[#C7C4D7]">${contract.skills.map(skill => skill[0]).join(', ')}</td><td class="px-5 py-3.5 font-[Red_Hat_Mono] text-xs tabular-nums">${contract.inicio} → ${contract.fin}</td><td class="px-5 py-3.5 font-semibold tabular-nums">${contract.total}</td><td class="px-5 py-3.5">${contract.estado === 'Activo' ? statusBadge('Activo','success') : statusBadge('Pasado','neutral')}</td><td class="px-5 py-3.5 text-right relative">${moreButton('Acciones para contrato ' + contract.id)}${menu(`<button type="button" role="menuitem" data-action="contract-detail" data-id="${contract.id}" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Ver detalle</button><button type="button" role="menuitem" data-action="noop" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Marcar como devuelto</button><button type="button" role="menuitem" data-action="noop" class="block w-full px-3.5 py-2 text-left text-sm text-[#BA1A1A] dark:text-[#FFB4AB]">Eliminar</button>`)}</td></tr>`).join('');
+      document.getElementById('contracts-section').innerHTML = `<div class="flex flex-col gap-6"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Contratos activos y pasados</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Historial de alquileres con desglose individual de skills y montos.</p></div><div class="rounded-xl border border-[#C7C4D7] bg-white overflow-visible dark:border-[#464554] dark:bg-[#1B1B23]"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-[#F6F2FE] border-b border-[#C7C4D7] dark:bg-[#1F1F27] dark:border-[#464554]"><tr><th class="px-5 py-3.5 text-xs">Cliente</th><th class="px-5 py-3.5 text-xs">Agente</th><th class="px-5 py-3.5 text-xs">Skills</th><th class="px-5 py-3.5 text-xs">Fechas</th><th class="px-5 py-3.5 text-xs">Importe</th><th class="px-5 py-3.5 text-xs">Estado</th><th class="px-5 py-3.5 text-right text-xs">Acciones</th></tr></thead><tbody class="divide-y divide-[#C7C4D7] dark:divide-[#464554]">${rows}</tbody></table></div></div></div>`;
+    }
+
+    function updateErrorCount() {
+      const count = errors.filter(error => !state.errorsResolved.has(error.id)).length;
+      document.getElementById('sidebar-error-count').textContent = count;
+    }
+
+    function renderErrors() {
+      const rows = errors.map(error => {
+        const resolved = state.errorsResolved.has(error.id);
+        const typeBadge = statusBadge(error.tipo, error.gravedad);
+        const status = resolved ? statusBadge('Resuelto','success') : statusBadge('Pendiente','neutral');
+        return `<tr class="hover:bg-[#F6F2FE] dark:hover:bg-[#1F1F27]"><td class="px-5 py-3.5 font-[Red_Hat_Mono] text-xs tabular-nums whitespace-nowrap">${error.timestamp}</td><td class="px-5 py-3.5 font-medium">${error.agente}</td><td class="px-5 py-3.5">${typeBadge}</td><td class="px-5 py-3.5 text-sm text-[#777586] dark:text-[#C7C4D7]">${error.descripcion}</td><td class="px-5 py-3.5">${status}</td><td class="px-5 py-3.5 text-right relative">${moreButton('Acciones para error ' + error.id)}${menu(`<button type="button" role="menuitem" data-action="error-detail" data-id="${error.id}" class="block w-full px-3.5 py-2 text-left text-sm hover:bg-[#F0ECF8] dark:hover:bg-[#464554]">Ver detalle</button><button type="button" role="menuitem" data-action="error-resolve" data-id="${error.id}" class="block w-full px-3.5 py-2 text-left text-sm text-[#15803D] dark:text-[#4ADE80] ${resolved ? 'opacity-50' : ''}" ${resolved ? 'disabled' : ''}>${resolved ? 'Ya resuelto' : 'Marcar como resuelto'}</button>`)}</td></tr>`;
+      }).join('');
+      document.getElementById('errors-section').innerHTML = `<div class="flex flex-col gap-6"><div><h2 class="text-2xl font-semibold font-[Red_Hat_Text]">Incidencias de ejecución</h2><p class="text-sm text-[#777586] dark:text-[#C7C4D7]">Errores recientes clasificados por gravedad y tipo.</p></div><div class="rounded-xl border border-[#C7C4D7] bg-white overflow-visible dark:border-[#464554] dark:bg-[#1B1B23]"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-[#F6F2FE] border-b border-[#C7C4D7] dark:bg-[#1F1F27] dark:border-[#464554]"><tr><th class="px-5 py-3.5 text-xs">Timestamp</th><th class="px-5 py-3.5 text-xs">Agente</th><th class="px-5 py-3.5 text-xs">Tipo / Gravedad</th><th class="px-5 py-3.5 text-xs">Descripción</th><th class="px-5 py-3.5 text-xs">Estado</th><th class="px-5 py-3.5 text-right text-xs">Acciones</th></tr></thead><tbody class="divide-y divide-[#C7C4D7] dark:divide-[#464554]">${rows}</tbody></table></div></div></div>`;
+      updateErrorCount();
+    }
+
+    function renderSection(section) {
+      document.querySelectorAll('[data-panel]').forEach(panel => panel.classList.toggle('hidden', panel.dataset.panel !== section));
+      document.querySelectorAll('[data-section]').forEach(button => {
+        const active = button.dataset.section === section;
+        button.classList.toggle('bg-[#E3DFFF]', active);
+        button.classList.toggle('text-[#2C2961]', active);
+        button.classList.toggle('dark:bg-[#42407A]', active);
+        button.classList.toggle('dark:text-[#E3DFFF]', active);
+        if (active) button.setAttribute('aria-current', 'page'); else button.removeAttribute('aria-current');
+      });
+      const titles = { dashboard:'Dashboard', users:'Gestión de Usuarios', agents:'Gestión de Agentes', skills:'Skills', contracts:'Contrataciones', errors:'Log de errores' };
+      document.getElementById('section-title').textContent = titles[section];
+      state.activeSection = section;
+      closeMenus();
+    }
+
+    document.getElementById('main-nav').addEventListener('click', event => {
+      const button = event.target.closest('[data-section]');
+      if (!button) return;
+      renderSection(button.dataset.section);
+      if (window.innerWidth < 1024) {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('fixed','inset-y-0','left-0','z-40','shadow-xl');
+      }
+    });
+
+    document.addEventListener('click', event => {
+      const menuButton = event.target.closest('[data-menu]');
+      if (menuButton) {
+        event.stopPropagation();
+        const dropdown = menuButton.parentElement.querySelector('[data-dropdown]');
+        const wasOpen = !dropdown.classList.contains('hidden');
+        closeMenus();
+        if (!wasOpen) { dropdown.classList.remove('hidden'); menuButton.setAttribute('aria-expanded','true'); state.openMenu = dropdown; }
+        return;
+      }
+      if (!event.target.closest('[data-dropdown]')) closeMenus();
+
+      const modalClose = event.target.closest('[data-modal-close]') || event.target.id === 'modal-backdrop';
+      if (modalClose) closeModal();
+
+      const skillToggle = event.target.closest('[data-agent-skills]');
+      if (skillToggle) {
+        const panel = skillToggle.closest('article').querySelector('[data-agent-panel]');
+        const open = skillToggle.getAttribute('aria-expanded') === 'true';
+        skillToggle.setAttribute('aria-expanded', String(!open));
+        panel.classList.toggle('hidden', open);
+      }
+
+      const action = event.target.closest('[data-action]');
+      if (!action) return;
+      closeMenus();
+      if (action.dataset.action === 'noop') return;
+      if (action.dataset.action === 'user-detail') {
+        const user = users.find(item => item.id === action.dataset.id);
+        openModal('Detalle de usuario', user.id + ' · Registro desde ' + user.registro, `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Empresa</p><p class="font-medium">${user.nombre}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Contacto</p><p>${user.contacto}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Correo</p><p class="font-[Red_Hat_Mono] text-xs">${user.email}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">País</p><p>${user.pais}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Plan</p><p>${user.plan}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Estado</p><p>${user.estado}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Agentes asignados</p><p>${user.agentes}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Facturación mensual</p><p class="font-semibold tabular-nums">${user.gasto}</p></div></div>`);
+      }
+      if (action.dataset.action === 'agent-config') {
+        const agent = agents.find(item => item.id === action.dataset.id);
+        openModal('Configuración del agente', agent.nombre + ' · ' + agent.propietario, `<p class="text-xs text-[#777586] dark:text-[#C7C4D7] mb-2">PROMPT DE SISTEMA COMPLETO</p><pre class="p-4 rounded-lg border border-[#C7C4D7] bg-[#F6F2FE] font-[Red_Hat_Mono] text-xs whitespace-pre-wrap max-h-80 overflow-y-auto dark:border-[#464554] dark:bg-[#1F1F27]">${agent.prompt}</pre>`, 'max-w-2xl');
+      }
+      if (action.dataset.action === 'skill-detail') {
+        const skill = skills.find(item => item.id === action.dataset.id);
+        openModal('Detalle de skill', skill.id + ' · ' + skill.version, `<div class="flex flex-col gap-4"><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Nombre</p><p class="font-semibold">${skill.nombre}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Descripción</p><p class="text-sm">${skill.descripcion}</p></div><div class="grid grid-cols-2 gap-4"><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Tarifa mensual</p><p class="font-semibold tabular-nums">${skill.precio}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Agentes habilitados</p><p>${skill.agentes}</p></div></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Permisos</p><p class="font-[Red_Hat_Mono] text-xs">${skill.permisos}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Agentes vinculados</p><p class="text-sm">${skill.vinculados}</p></div></div>`);
+      }
+      if (action.dataset.action === 'contract-detail') {
+        const contract = contracts.find(item => item.id === action.dataset.id);
+        const skillRows = contract.skills.map(skill => `<div class="flex items-center justify-between py-2 border-b border-[#C7C4D7] dark:border-[#464554]"><span class="text-sm">${skill[0]}</span><span class="font-[Red_Hat_Mono] text-xs tabular-nums">${skill[1]}</span></div>`).join('');
+        openModal('Desglose del contrato', contract.id + ' · ' + contract.inicio + ' al ' + contract.fin, `<div class="flex flex-col gap-4"><div class="grid grid-cols-2 gap-4"><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Cliente</p><p class="font-medium">${contract.cliente}</p></div><div><p class="text-xs text-[#777586] dark:text-[#C7C4D7]">Agente alquilado</p><p class="font-medium">${contract.agente}</p></div></div><div class="rounded-lg border border-[#C7C4D7] p-4 dark:border-[#464554]"><p class="text-xs text-[#777586] mb-2 dark:text-[#C7C4D7]">Desglose de conceptos</p><div class="flex items-center justify-between py-2 border-b border-[#C7C4D7] dark:border-[#464554]"><span class="text-sm">Licencia base del agente</span><span class="font-[Red_Hat_Mono] text-xs tabular-nums">$${contract.base.toLocaleString('en-US',{minimumFractionDigits:2})}</span></div>${skillRows}<div class="flex items-center justify-between py-2 border-b border-[#C7C4D7] text-[#B45309] dark:border-[#464554] dark:text-[#FBBF24]"><span class="text-sm">Descuento aplicado</span><span class="font-[Red_Hat_Mono] text-xs tabular-nums">-$${contract.descuento.toLocaleString('en-US',{minimumFractionDigits:2})}</span></div><div class="flex items-center justify-between pt-3 font-semibold"><span>Total pagado</span><span class="tabular-nums">${contract.total}</span></div></div></div>`, 'max-w-xl');
+      }
+      if (action.dataset.action === 'error-detail') {
+        const error = errors.find(item => item.id === action.dataset.id);
+        openModal('Traza del error', error.id + ' · ' + error.agente + ' · ' + error.timestamp, `<p class="text-xs text-[#777586] mb-2 dark:text-[#C7C4D7]">STACK TRACE COMPLETO</p><pre class="p-4 rounded-lg border border-[#C7C4D7] bg-[#F6F2FE] font-[Red_Hat_Mono] text-xs whitespace-pre-wrap max-h-80 overflow-y-auto dark:border-[#464554] dark:bg-[#1F1F27]">${error.trace}</pre>`, 'max-w-2xl');
+      }
+      if (action.dataset.action === 'error-resolve') {
+        state.errorsResolved.add(action.dataset.id);
+        renderErrors();
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') { closeMenus(); closeModal(); }
+      if (event.key === 'Tab' && document.querySelector('#modal-layer [role="dialog"]')) {
+        const dialog = document.querySelector('#modal-layer [role="dialog"]');
+        const focusable = Array.from(dialog.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'));
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.setAttribute('aria-pressed', String(document.documentElement.classList.contains('dark')));
+    themeToggle.addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      themeToggle.setAttribute('aria-pressed', String(dark));
+      try { localStorage.setItem('agenthub-theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    document.getElementById('mobile-nav-btn').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+      sidebar.classList.toggle('fixed');
+      sidebar.classList.toggle('inset-y-0');
+      sidebar.classList.toggle('left-0');
+      sidebar.classList.toggle('z-40');
+      sidebar.classList.toggle('shadow-xl');
+    });
+
+    renderDashboard();
+    renderUsers();
+    renderAgents();
+    renderSkills();
+    renderContracts();
+    renderErrors();
+    renderSection('dashboard');
+  </script>
+</body>
+</html>
